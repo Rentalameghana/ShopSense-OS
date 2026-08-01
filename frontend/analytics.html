@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analytics - ShopSense OS</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- Sidebar -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <h2>ShopSense OS</h2>
+        </div>
+
+
+        <ul class="menu">
+
+
+            <li>
+                <a href="dashboard.html">🏠 Dashboard</a>
+            </li>
+
+
+            <li>
+                <a href="vendors.html">🏢 Vendors</a>
+            </li>
+
+
+            <li>
+                <a href="products.html">📦 Products</a>
+            </li>
+
+
+            <li>
+                <a href="customers.html">👤 Customers</a>
+            </li>
+
+
+            <li>
+                <a href="transactions.html">💳 Transactions</a>
+            </li>
+
+
+            <li class="active">
+                <a href="analytics.html">📊 Analytics</a>
+            </li>
+
+
+            <li>
+                <a href="login.html">🚪 Logout</a>
+            </li>
+
+
+        </ul>
+
+
+    </div>
+
+
+
+
+
+    <!-- Main Content -->
+
+
+    <div class="main-content">
+
+
+        <div class="header">
+
+
+            <div>
+
+                <h1>Analytics Dashboard</h1>
+
+                <p>Business insights and performance overview</p>
+
+            </div>
+
+
+            <div class="admin">
+
+                <h3>Admin</h3>
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- Cards -->
+
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <h3>Total Revenue</h3>
+
+                <h2 id="totalRevenue">
+                    ₹0
+                </h2>
+
+            </div>
+
+
+
+            <div class="card">
+
+                <h3>Total Transactions</h3>
+
+                <h2 id="totalTransactions">
+                    0
+                </h2>
+
+            </div>
+
+
+
+
+            <div class="card">
+
+                <h3>Total Customers</h3>
+
+                <h2 id="totalCustomers">
+                    0
+                </h2>
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+        <!-- Charts -->
+
+
+        <div class="activity">
+
+
+            <h2>Sales Overview</h2>
+
+
+            <canvas id="salesChart"></canvas>
+
+
+        </div>
+
+
+
+
+
+        <div class="activity">
+
+
+            <h2>Product Insights</h2>
+
+
+            <canvas id="productChart"></canvas>
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- Chart Library -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script src="js/analytics.js"></script>
+
+
+</body>
+
+
+</html>

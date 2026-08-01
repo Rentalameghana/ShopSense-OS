@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>ShopSense OS - Vendors</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- Sidebar -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <h2>ShopSense OS</h2>
+        </div>
+
+
+        <ul class="menu">
+
+            <li>
+                <a href="dashboard.html">🏠 Dashboard</a>
+            </li>
+
+
+            <li class="active">
+                <a href="vendors.html">🏢 Vendors</a>
+            </li>
+
+
+            <li>
+                <a href="#">📦 Products</a>
+            </li>
+
+
+            <li>
+                <a href="#">📊 Analytics</a>
+            </li>
+
+
+            <li>
+                <a href="login.html">🚪 Logout</a>
+            </li>
+
+        </ul>
+
+
+    </div>
+
+
+
+
+    <!-- Main Content -->
+
+    <div class="main-content">
+
+
+        <div class="header">
+
+            <div>
+
+                <h1>Vendors Control</h1>
+
+                <p>Manage Marketplace Vendors</p>
+
+            </div>
+
+
+            <div class="admin">
+
+                <h3>Admin</h3>
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- Register Vendor -->
+
+
+        <div class="status-box">
+
+
+            <h2>Register Vendor</h2>
+
+
+            <input 
+                type="text"
+                id="business_name"
+                placeholder="Business Legal Name"
+            >
+
+
+
+            <input 
+                type="email"
+                id="corporate_email"
+                placeholder="Corporate Email"
+            >
+
+
+
+            <button onclick="addVendor()">
+    Initialize Vendor Profile
+</button>
+
+                Initialize Vendor Profile
+
+            </button>
+
+
+
+        </div>
+
+
+
+
+
+        <!-- Vendor List -->
+
+
+        <div class="activity">
+
+
+            <h2>Marketplace Vendor Directory</h2>
+
+
+
+            <table>
+
+
+                <thead>
+
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Vendor Name</th>
+
+                        <th>Email</th>
+
+                        <th>Status</th>
+
+                        <th>Actions</th>
+
+
+                    </tr>
+
+
+                </thead>
+
+
+
+                <tbody id="vendorTable">
+
+
+                </tbody>
+
+
+            </table>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+<script src="js/vendor.js"></script>
+
+
+
+</body>
+
+
+</html>

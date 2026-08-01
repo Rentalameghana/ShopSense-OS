@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Transactions - ShopSense OS</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- Sidebar -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <h2>ShopSense OS</h2>
+        </div>
+
+
+        <ul class="menu">
+
+            <li>
+                <a href="dashboard.html">🏠 Dashboard</a>
+            </li>
+
+
+            <li>
+                <a href="vendors.html">🏢 Vendors</a>
+            </li>
+
+
+            <li>
+                <a href="products.html">📦 Products</a>
+            </li>
+
+
+            <li>
+                <a href="customers.html">👤 Customers</a>
+            </li>
+
+
+            <li class="active">
+                <a href="transactions.html">💳 Transactions</a>
+            </li>
+
+
+            <li>
+                <a href="analytics.html">📊 Analytics</a>
+            </li>
+
+
+            <li>
+                <a href="login.html">🚪 Logout</a>
+            </li>
+
+
+        </ul>
+
+
+    </div>
+
+
+
+
+    <!-- Main Content -->
+
+
+    <div class="main-content">
+
+
+        <div class="header">
+
+            <div>
+
+                <h1>Transaction Management</h1>
+
+                <p>Track marketplace sales and revenue</p>
+
+            </div>
+
+
+            <div class="admin">
+
+                <h3>Admin</h3>
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- Add Transaction -->
+
+
+        <div class="status-box">
+
+
+            <h2>Add New Transaction</h2>
+
+
+            <br>
+
+
+            <input 
+            type="text"
+            id="customerName"
+            placeholder="Customer Name">
+
+
+            <br><br>
+
+
+            <input
+            type="text"
+            id="productName"
+            placeholder="Product Name">
+
+
+            <br><br>
+
+
+            <input
+            type="number"
+            id="amount"
+            placeholder="Amount">
+
+
+            <br><br>
+
+
+            <input
+            type="date"
+            id="transactionDate">
+
+
+
+            <br><br>
+
+
+            <button onclick="addTransaction()">
+                Add Transaction
+            </button>
+
+
+        </div>
+
+
+
+
+
+        <!-- Transaction Table -->
+
+
+        <div class="activity">
+
+
+            <h2>Transaction List</h2>
+
+
+            <table>
+
+
+                <thead>
+
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Customer</th>
+
+                        <th>Product</th>
+
+                        <th>Amount</th>
+
+                        <th>Date</th>
+
+
+                    </tr>
+
+
+                </thead>
+
+
+
+                <tbody id="transactionTable">
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script src="js/transaction.js"></script>
+
+
+</body>
+
+</html>

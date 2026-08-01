@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopSense OS - Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <div class="logo">
+            <h2>ShopSense OS</h2>
+        </div>
+
+        <ul class="menu">
+
+            <li class="active">
+                <a href="dashboard.html">🏠 Dashboard</a>
+            </li>
+
+            <li>
+                <a href="vendors.html">🏢 Vendors</a>
+            </li>
+
+            <li>
+                <a href="products.html">📦 Products</a>
+            </li>
+
+            <li>
+                <a href="customers.html">👤 Customers</a>
+            </li>
+
+            <li>
+                <a href="transactions.html">💳 Transactions</a>
+            </li>
+
+            <li>
+                <a href="analytics.html">📊 Analytics</a>
+            </li>
+
+            <li>
+                <a href="login.html">🚪 Logout</a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+
+        <!-- Header -->
+        <div class="header">
+
+            <div>
+                <h1>Dashboard</h1>
+                <p>Welcome to ShopSense OS</p>
+            </div>
+
+            <div class="admin">
+                <h3>Admin</h3>
+            </div>
+
+        </div>
+
+
+        <!-- Cards -->
+        <div class="cards">
+
+            <div class="card">
+                <h3>Total Vendors</h3>
+                <h1 id="totalVendors">0</h1>
+                <p>Registered Vendors</p>
+            </div>
+
+
+            <div class="card">
+                <h3>Total Products</h3>
+                <h1 id="totalProducts">0</h1>
+                <p>Available Products</p>
+            </div>
+
+
+            <div class="card">
+                <h3>Active Vendors</h3>
+                <h1 id="activeVendors">0</h1>
+                <p>Currently Active</p>
+            </div>
+
+        </div>
+
+
+
+        <!-- Marketplace Status -->
+        <div class="status-box">
+
+            <h2>Marketplace Status</h2>
+
+            <h3 class="running">
+                🟢 Running
+            </h3>
+
+            <p>
+                Backend Server Connected Successfully
+            </p>
+
+        </div>
+
+
+
+        <!-- Recent Activity -->
+        <div class="activity">
+
+            <h2>Recent Activity</h2>
+
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Module</th>
+                        <th>Status</th>
+                        <th>Progress</th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+                        <td>Vendor Management</td>
+                        <td>Completed</td>
+                        <td>100%</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Product Management</td>
+                        <td>Completed</td>
+                        <td>100%</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Customer Management</td>
+                        <td>Completed</td>
+                        <td>100%</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Transaction Management</td>
+                        <td>Completed</td>
+                        <td>100%</td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Analytics</td>
+                        <td>Completed</td>
+                        <td>100%</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
