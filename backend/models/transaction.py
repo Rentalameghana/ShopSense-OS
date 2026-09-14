@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
 
 from backend.database.database import Base
 
@@ -16,3 +16,5 @@ class Transaction(Base):
     amount = Column(Float, nullable=False)
 
     transaction_date = Column(String, nullable=False)
+
+    vendor_id = Column(Integer, ForeignKey("vendors.id"), nullable=False)

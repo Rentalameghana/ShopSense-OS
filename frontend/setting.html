@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopSense OS - Settings</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .settings-message {
+            min-height: 20px;
+            margin: -18px 0 20px;
+            color: #475569;
+            font-size: 14px;
+        }
+        .settings-message.error { color: #b91c1c; }
+        .settings-message.success { color: #15803d; }
+        .settings-card p { margin: 10px 0; color: #475569; }
+        .toggle input { width: 18px; height: 18px; accent-color: #4f46e5; }
+        @media (max-width: 700px) {
+            .main-content { padding: 24px 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo"><h2>ShopSense OS</h2></div>
+            <ul class="menu">
+                <li><a href="dashboard.html">🏠 Dashboard</a></li>
+                <li><a href="vendors.html">🏢 Vendors</a></li>
+                <li><a href="products.html">📦 Products</a></li>
+                <li><a href="customers.html">👤 Customers</a></li>
+                <li><a href="transactions.html">💳 Transactions</a></li>
+                <li><a href="analytics.html">📊 Analytics</a></li>
+                <li class="active"><a href="setting.html">⚙️ Settings</a></li>
+                <li><a href="login.html">🚪 Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="header">
+                <div>
+                    <h1>⚙️ Settings</h1>
+                    <p>Manage your ShopSense OS configuration</p>
+                </div>
+                <div class="admin">👤 Admin</div>
+            </div>
+
+            <div id="settingsMessage" class="settings-message" role="status" aria-live="polite"></div>
+
+            <div class="settings-container">
+                <section class="settings-card">
+                    <div class="settings-icon">👤</div>
+                    <h2>Admin Profile</h2>
+                    <label for="profileName">Full Name</label>
+                    <input id="profileName" type="text" value="Admin" autocomplete="name">
+                    <label for="profileEmail">Email</label>
+                    <input id="profileEmail" type="email" value="admin@shopsense.com" autocomplete="email">
+                    <button id="saveProfile" type="button">Save Profile</button>
+                </section>
+
+                <section class="settings-card">
+                    <div class="settings-icon">🔐</div>
+                    <h2>Security</h2>
+                    <label for="currentPassword">Current Password</label>
+                    <input id="currentPassword" type="password" placeholder="Enter password" autocomplete="current-password">
+                    <label for="newPassword">New Password</label>
+                    <input id="newPassword" type="password" placeholder="New password" autocomplete="new-password">
+                    <button id="updatePassword" type="button">Update Password</button>
+                </section>
+
+                <section class="settings-card">
+                    <div class="settings-icon">🔔</div>
+                    <h2>Notifications</h2>
+                    <div class="toggle">
+                        <label for="emailNotifications">Email Notifications</label>
+                        <input id="emailNotifications" type="checkbox" checked>
+                    </div>
+                    <div class="toggle">
+                        <label for="systemAlerts">System Alerts</label>
+                        <input id="systemAlerts" type="checkbox" checked>
+                    </div>
+                </section>
+
+                <section class="settings-card">
+                    <div class="settings-icon">🖥️</div>
+                    <h2>System Status</h2>
+                    <p>🟢 Backend Server Connected</p>
+                    <p>🟢 Database Active</p>
+                    <p>🟢 API Services Running</p>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="js/setting.js"></script>
+</body>
+</html>

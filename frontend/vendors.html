@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopSense OS - Vendors</title>
 
     <link rel="stylesheet" href="css/style.css">
-
 </head>
-
 
 <body>
 
-
 <div class="container">
-
 
     <!-- Sidebar -->
 
@@ -24,28 +21,31 @@
             <h2>ShopSense OS</h2>
         </div>
 
-
         <ul class="menu">
 
             <li>
                 <a href="dashboard.html">🏠 Dashboard</a>
             </li>
 
-
             <li class="active">
                 <a href="vendors.html">🏢 Vendors</a>
             </li>
 
-
             <li>
-                <a href="#">📦 Products</a>
+                <a href="products.html">📦 Products</a>
             </li>
 
-
             <li>
-                <a href="#">📊 Analytics</a>
+                <a href="customers.html">👤 Customers</a>
             </li>
 
+            <li>
+                <a href="transactions.html">💳 Transactions</a>
+            </li>
+
+            <li>
+                <a href="analytics.html">📊 Analytics</a>
+            </li>
 
             <li>
                 <a href="login.html">🚪 Logout</a>
@@ -53,9 +53,7 @@
 
         </ul>
 
-
     </div>
-
 
 
 
@@ -63,137 +61,88 @@
 
     <div class="main-content">
 
-
         <div class="header">
 
             <div>
-
-                <h1>Vendors Control</h1>
-
+                <h1>Vendor Management</h1>
                 <p>Manage Marketplace Vendors</p>
-
             </div>
-
 
             <div class="admin">
-
                 <h3>Admin</h3>
-
             </div>
-
 
         </div>
 
+        <div id="vendorMessage" class="vendor-message" role="status" aria-live="polite"></div>
 
 
 
-
-        <!-- Register Vendor -->
-
+        <!-- Vendor Form -->
 
         <div class="status-box">
 
-
             <h2>Register Vendor</h2>
 
+            <br>
 
-            <input 
+            <input
                 type="text"
                 id="business_name"
-                placeholder="Business Legal Name"
-            >
+                placeholder="Business Legal Name">
 
+            <br><br>
 
-
-            <input 
+            <input
                 type="email"
                 id="corporate_email"
-                placeholder="Corporate Email"
-            >
+                placeholder="Corporate Email">
 
-
+            <br><br>
 
             <button onclick="addVendor()">
-    Initialize Vendor Profile
-</button>
-
                 Initialize Vendor Profile
-
             </button>
-
-
 
         </div>
 
 
 
-
-
-        <!-- Vendor List -->
-
+        <!-- Vendor Table -->
 
         <div class="activity">
 
-
             <h2>Marketplace Vendor Directory</h2>
-
-
 
             <table>
 
-
                 <thead>
-
 
                     <tr>
 
                         <th>ID</th>
-
                         <th>Vendor Name</th>
-
                         <th>Email</th>
-
                         <th>Status</th>
-
                         <th>Actions</th>
-
 
                     </tr>
 
-
                 </thead>
-
-
 
                 <tbody id="vendorTable">
 
-
                 </tbody>
-
 
             </table>
 
-
-
         </div>
-
-
 
     </div>
 
-
-
 </div>
-
-
-
-
 
 <script src="js/vendor.js"></script>
 
-
-
 </body>
-
-
 </html>

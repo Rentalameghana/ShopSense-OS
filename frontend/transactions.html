@@ -2,12 +2,137 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>Transactions - ShopSense OS</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+
+
+    <style>
+
+        .transaction-form {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            max-width: 700px;
+        }
+
+
+        .transaction-form input,
+        .transaction-form select {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 12px;
+
+            margin: 12px 0;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 10px;
+
+            box-sizing: border-box;
+
+            font-size: 15px;
+
+        }
+
+
+        .transaction-form label {
+
+            display: block;
+
+            margin-top: 15px;
+
+            margin-bottom: 6px;
+
+            font-weight: 600;
+
+            color: #334155;
+
+        }
+
+
+        .transaction-btn {
+
+            margin-top: 15px;
+
+            padding: 12px 25px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+        }
+
+
+        .transaction-btn:hover {
+
+            background: #1d4ed8;
+
+        }
+
+        .transaction-message {
+            min-height: 20px;
+            margin: 0 0 18px;
+            color: #475569;
+            font-size: 14px;
+        }
+
+
+        .transaction-message.error {
+            color: #b91c1c;
+        }
+
+
+        .transaction-message.success {
+            color: #15803d;
+        }
+
+
+        .transaction-table {
+
+            background: white;
+
+        }
+
+
+        .transaction-table th,
+        .transaction-table td {
+
+            padding: 12px;
+
+            text-align: left;
+
+        }
+
+
+        .transaction-list {
+            overflow-x: auto;
+        }
+
+    </style>
+
 </head>
 
 
@@ -17,62 +142,87 @@
 <div class="container">
 
 
-    <!-- Sidebar -->
+    <!-- SIDEBAR -->
 
     <div class="sidebar">
 
         <div class="logo">
+
             <h2>ShopSense OS</h2>
+
         </div>
 
 
         <ul class="menu">
 
             <li>
-                <a href="dashboard.html">🏠 Dashboard</a>
+
+                <a href="dashboard.html">
+                    🏠 Dashboard
+                </a>
+
             </li>
 
 
             <li>
-                <a href="vendors.html">🏢 Vendors</a>
+
+                <a href="vendors.html">
+                    🏢 Vendors
+                </a>
+
             </li>
 
 
             <li>
-                <a href="products.html">📦 Products</a>
+
+                <a href="products.html">
+                    📦 Products
+                </a>
+
             </li>
 
 
             <li>
-                <a href="customers.html">👤 Customers</a>
+
+                <a href="customers.html">
+                    👤 Customers
+                </a>
+
             </li>
 
 
             <li class="active">
-                <a href="transactions.html">💳 Transactions</a>
+
+                <a href="transactions.html">
+                    💳 Transactions
+                </a>
+
             </li>
 
 
             <li>
-                <a href="analytics.html">📊 Analytics</a>
+
+                <a href="analytics.html">
+                    📊 Analytics
+                </a>
+
             </li>
 
 
             <li>
-                <a href="login.html">🚪 Logout</a>
-            </li>
 
+                <a href="login.html">
+                    🚪 Logout
+                </a>
+
+            </li>
 
         </ul>
-
 
     </div>
 
 
-
-
-    <!-- Main Content -->
-
+    <!-- MAIN CONTENT -->
 
     <div class="main-content">
 
@@ -81,137 +231,172 @@
 
             <div>
 
-                <h1>Transaction Management</h1>
+                <h1>
+                    Transaction Management
+                </h1>
 
-                <p>Track marketplace sales and revenue</p>
+                <p>
+                    Track marketplace sales and revenue
+                </p>
 
             </div>
 
 
             <div class="admin">
 
-                <h3>Admin</h3>
+                <h3>
+                    Admin
+                </h3>
 
             </div>
 
-
         </div>
 
 
+        <!-- ADD TRANSACTION -->
+
+        <div class="transaction-form">
+
+            <h2>
+                Add New Transaction
+            </h2>
+
+            <div id="transactionMessage" class="transaction-message" role="status" aria-live="polite"></div>
 
 
+            <!-- Customer -->
 
-        <!-- Add Transaction -->
-
-
-        <div class="status-box">
-
-
-            <h2>Add New Transaction</h2>
-
-
-            <br>
-
-
-            <input 
-            type="text"
-            id="customerName"
-            placeholder="Customer Name">
-
-
-            <br><br>
-
+            <label for="customerName">
+                Customer Name
+            </label>
 
             <input
-            type="text"
-            id="productName"
-            placeholder="Product Name">
+                type="text"
+                id="customerName"
+                placeholder="Enter customer name">
 
 
-            <br><br>
+            <!-- Product -->
 
+            <label for="productName">
+                Product Name
+            </label>
+
+            <select id="productName">
+
+                <option value="">
+                    Select Product
+                </option>
+
+            </select>
+
+
+            <!-- Vendor -->
+
+            <label for="vendorId">
+                Vendor
+            </label>
+
+            <select id="vendorId">
+
+                <option value="">
+                    Select Vendor
+                </option>
+
+            </select>
+
+
+            <!-- Amount -->
+
+            <label for="amount">
+                Amount
+            </label>
 
             <input
-            type="number"
-            id="amount"
-            placeholder="Amount">
+                type="number"
+                id="amount"
+                placeholder="Enter amount"
+                min="0"
+                step="0.01">
 
 
-            <br><br>
+            <!-- Date -->
 
+            <label for="transactionDate">
+                Transaction Date
+            </label>
 
             <input
-            type="date"
-            id="transactionDate">
+                type="date"
+                id="transactionDate">
 
 
+            <!-- Button -->
 
-            <br><br>
+            <button
+                type="button"
+                class="transaction-btn"
+                onclick="addTransaction()">
 
-
-            <button onclick="addTransaction()">
                 Add Transaction
+
             </button>
 
-
         </div>
 
 
+        <!-- TRANSACTION LIST -->
+
+        <div class="activity transaction-list">
+
+            <h2>
+                Transaction List
+            </h2>
 
 
-
-        <!-- Transaction Table -->
-
-
-        <div class="activity">
-
-
-            <h2>Transaction List</h2>
-
-
-            <table>
-
+            <table class="transaction-table">
 
                 <thead>
 
-
                     <tr>
 
-                        <th>ID</th>
+                        <th>
+                            ID
+                        </th>
 
-                        <th>Customer</th>
+                        <th>
+                            Customer
+                        </th>
 
-                        <th>Product</th>
+                        <th>
+                            Product
+                        </th>
 
-                        <th>Amount</th>
+                        <th>
+                            Amount
+                        </th>
 
-                        <th>Date</th>
-
+                        <th>
+                            Date
+                        </th>
 
                     </tr>
-
 
                 </thead>
 
 
-
                 <tbody id="transactionTable">
-
 
                 </tbody>
 
-
             </table>
-
 
         </div>
 
 
     </div>
 
-
 </div>
-
 
 
 <script src="js/transaction.js"></script>

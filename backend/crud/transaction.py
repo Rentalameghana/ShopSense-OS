@@ -10,7 +10,8 @@ def create_transaction(db: Session, transaction: TransactionCreate):
         customer_name=transaction.customer_name,
         product_name=transaction.product_name,
         amount=transaction.amount,
-        transaction_date=transaction.transaction_date
+        transaction_date=transaction.transaction_date,
+        vendor_id=transaction.vendor_id
     )
 
     db.add(new_transaction)

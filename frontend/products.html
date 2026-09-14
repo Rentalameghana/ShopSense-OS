@@ -1,120 +1,919 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopSense OS - Products</title>
-
     <link rel="stylesheet" href="css/style.css">
 
-</head>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #eef2ff;
+            --background: #f3f0ff;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --border-focus: #818cf8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
 
+        body {
+            background: var(--background);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .content {
+            flex: 1;
+            padding: 30px;
+            max-width: 1400px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        /* Top Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .page-header h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            margin: 4px 0 0;
+            font-size: 14px;
+        }
+
+        /* Card container */
+        .dashboard-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+            padding: 26px;
+            margin-bottom: 28px;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 14px;
+        }
+
+        .card-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-header .header-desc {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin: 3px 0 0;
+        }
+
+        /* Quick Fill Bar */
+        .quick-fill-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary-light);
+            border: 1px dashed #c7d2fe;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+
+        .quick-fill-bar label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #3730a3;
+            white-space: nowrap;
+        }
+
+        .quick-fill-select {
+            flex: 1;
+            min-width: 220px;
+            padding: 8px 12px;
+            border: 1px solid #c7d2fe;
+            border-radius: 8px;
+            background: white;
+            color: #1e1b4b;
+            font-size: 13px;
+            font-weight: 500;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .quick-fill-select:focus {
+            border-color: var(--primary);
+        }
+
+        /* Form Grid */
+        .product-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px 22px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .form-group label .required {
+            color: var(--danger);
+        }
+
+        .form-group label .optional {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 11px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 14px;
+            background: #f8fafc;
+            color: var(--text-main);
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+        }
+
+        select.form-control {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+            appearance: none;
+            padding-right: 36px;
+        }
+
+        /* Image upload area */
+        .image-upload-box {
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 16px;
+            background: #f8fafc;
+            margin-top: 4px;
+        }
+
+        .image-inputs-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            width: 100%;
+            padding: 9px;
+            font-size: 13px;
+            color: #475569;
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .divider-or {
+            font-size: 12px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+        }
+
+        .url-input-wrapper {
+            flex: 2;
+            min-width: 260px;
+        }
+
+        /* Preview Container */
+        .image-preview-card {
+            display: none;
+            margin-top: 14px;
+            padding: 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .image-preview-card img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .preview-info {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .preview-info strong {
+            display: block;
+            color: var(--text-main);
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        .image-error {
+            color: var(--danger);
+            font-size: 12px;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        /* Form Buttons */
+        .form-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .add-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+        }
+
+        .reset-btn {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .reset-btn:hover {
+            background: #e2e8f0;
+            color: var(--text-main);
+        }
+
+        /* Message alert banner */
+        .product-message {
+            min-height: 20px;
+            margin-bottom: 16px;
+            padding: 0;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .product-message.error {
+            display: block;
+            padding: 10px 14px;
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .product-message.success {
+            display: block;
+            padding: 10px 14px;
+            background: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        /* Recommendations Card */
+        .recommendation-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .recommendation-card h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 0 6px;
+            color: var(--text-main);
+        }
+
+        .recommendation-card p {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin: 0 0 16px;
+        }
+
+        .recommendation-card select {
+            width: 100%;
+            max-width: 380px;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            background: white;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .recommendation-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .recommendation-item {
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #f8fafc;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .recommendation-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+            border-color: #cbd5e1;
+        }
+
+        .recommendation-item strong {
+            display: block;
+            color: #1e1b4b;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .recommendation-item span {
+            display: block;
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        /* Product Catalog Table Toolbar */
+        .product-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-filters {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-filters label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .toolbar-filters select,
+        .search-input {
+            padding: 9px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            background: white;
+            font-size: 13px;
+            color: var(--text-main);
+            outline: none;
+            min-width: 180px;
+        }
+
+        .search-input:focus,
+        .toolbar-filters select:focus {
+            border-color: var(--primary);
+        }
+
+        /* Table wrapper prevents mobile horizontal scroll */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            background: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 13px;
+            min-width: 650px;
+        }
+
+        thead tr {
+            background: #f8fafc;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        th {
+            padding: 14px 16px;
+            font-weight: 600;
+            color: #475569;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        tbody tr:hover {
+            background: #faf5ff;
+        }
+
+        /* Badges */
+        .category-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            background: #eef2ff;
+            color: #4338ca;
+        }
+
+        .category-badge.electronics { background: #e0e7ff; color: #3730a3; }
+        .category-badge.fashion { background: #fce7f3; color: #9d174d; }
+        .category-badge.beauty { background: #fae8ff; color: #86198f; }
+        .category-badge.accessories { background: #ede9fe; color: #5b21b6; }
+        .category-badge.footwear { background: #fef3c7; color: #92400e; }
+        .category-badge.home { background: #e0f2fe; color: #075985; }
+
+        .stock-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 12px;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .stock-cell.low-stock .stock-badge {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .stock-cell small {
+            display: block;
+            margin-top: 3px;
+            color: #dc2626;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Product image thumbnail */
+        .product-image {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            display: block;
+            background: #f8fafc;
+        }
+
+        .product-placeholder {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #eef2ff, #ddd6fe);
+            color: #6366f1;
+            font-size: 18px;
+        }
+
+        .product-link-btn {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .product-link-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Mobile Behavior */
+        @media (max-width: 900px) {
+            .product-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 15px 20px;
+            }
+
+            .menu {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .menu li {
+                margin: 0;
+            }
+
+            .content {
+                padding: 16px;
+            }
+
+            .dashboard-card {
+                padding: 18px;
+            }
+
+            .quick-fill-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
 
 <body>
 
-
 <div class="layout">
 
-
     <!-- Sidebar -->
-
     <div class="sidebar">
-
-        <h2>ShopSense OS</h2>
-
-        <a href="dashboard.html">🏠 Dashboard</a>
-
-        <a href="vendors.html">🏢 Vendors Control</a>
-
-        <a href="products.html">📦 Products</a>
-
-        <a href="#">📊 Analytics</a>
-
-        <a href="login.html">🚪 Logout</a>
-
+        <div class="logo">
+            <h2>🛒 ShopSense OS</h2>
+        </div>
+        <ul class="menu">
+            <li><a href="dashboard.html">🏠 Dashboard</a></li>
+            <li><a href="vendors.html">🏢 Vendors Control</a></li>
+            <li class="active"><a href="products.html">📦 Products</a></li>
+            <li><a href="customers.html">👥 Customers</a></li>
+            <li><a href="transactions.html">💳 Transactions</a></li>
+            <li><a href="analytics.html">📊 Analytics Engine</a></li>
+            <li><a href="setting.html">⚙️ Settings</a></li>
+            <li><a href="login.html">🚪 Logout</a></li>
+        </ul>
     </div>
-
-
 
     <!-- Main Content -->
-
     <div class="content">
 
+        <div class="page-header">
+            <div>
+                <h1>Products Management</h1>
+                <p>Manage catalog inventory, add new product listings, and analyze sales recommendations.</p>
+            </div>
+        </div>
 
-        <h1>Products Management</h1>
+        <!-- ADD PRODUCT SECTION -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <div>
+                    <h2>✨ Add New Product</h2>
+                    <p class="header-desc">Publish a new item to your multi-vendor marketplace catalog.</p>
+                </div>
+            </div>
 
+            <div id="productMessage" class="product-message" role="status" aria-live="polite"></div>
 
-        <h2>Add Product</h2>
+            <!-- Quick fill sample product dropdown -->
+            <div class="quick-fill-bar">
+                <label for="quickTemplateSelect">⚡ Quick Fill Example:</label>
+                <select id="quickTemplateSelect" class="quick-fill-select" aria-label="Select an example product to prefill">
+                    <option value="">-- Select a sample product template to populate fields --</option>
+                    <option value="saree">👗 Silk Banarasi Saree (Fashion)</option>
+                    <option value="dress">👗 Floral Summer Dress (Fashion)</option>
+                    <option value="sandals">👡 Leather Flat Sandals (Footwear)</option>
+                    <option value="shoes">👟 Running Sports Shoes (Footwear)</option>
+                    <option value="handbag">👜 Classic Leather Handbag (Accessories)</option>
+                    <option value="watch">⌚ Chronograph Quartz Watch (Accessories)</option>
+                    <option value="necklace">📿 Silver Pendant Necklace (Accessories)</option>
+                    <option value="earrings">✨ Crystal Drop Earrings (Accessories)</option>
+                    <option value="bracelet">💫 Gold Plated Chain Bracelet (Accessories)</option>
+                    <option value="makeup">💄 All-in-One Makeup Kit (Beauty)</option>
+                    <option value="lipstick">💄 Velvet Matte Lipstick (Beauty)</option>
+                    <option value="perfume">🌸 Luxury Eau De Parfum (Beauty)</option>
+                    <option value="skincare">🧴 Hydrating Vitamin C Serum (Beauty)</option>
+                    <option value="headphones">🎧 Noise-Cancelling Headphones (Electronics)</option>
+                    <option value="laptop">💻 Ultrabook Core i7 Laptop (Electronics)</option>
+                    <option value="mobile">📱 5G Flagship Smartphone (Electronics)</option>
+                    <option value="keyboard">⌨️ Mechanical RGB Keyboard (Electronics)</option>
+                    <option value="mouse">🖱️ Ergonomic Wireless Mouse (Electronics)</option>
+                    <option value="monitor">🖥️ 27-inch 4K UHD Monitor (Electronics)</option>
+                    <option value="cable">🔌 Braided Fast USB-C Cable (Electronics)</option>
+                </select>
+            </div>
 
+            <!-- Product Form Grid -->
+            <div class="product-form-grid">
+                <!-- Product Name -->
+                <div class="form-group">
+                    <label for="product_name">Product Name <span class="required">*</span></label>
+                    <input
+                        type="text"
+                        id="product_name"
+                        class="form-control"
+                        placeholder="e.g. Silk Banarasi Saree"
+                        required
+                    >
+                </div>
 
-        <input 
-            type="text"
-            id="product_name"
-            placeholder="Product Name"
-        >
+                <!-- Category -->
+                <div class="form-group">
+                    <label for="category">Category <span class="required">*</span></label>
+                    <select id="category" class="form-control" required>
+                        <option value="" disabled selected>-- Choose Category --</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Beauty">Beauty</option>
+                        <option value="Accessories">Accessories</option>
+                        <option value="Footwear">Footwear</option>
+                        <option value="Home & Lifestyle">Home & Lifestyle</option>
+                    </select>
+                </div>
 
+                <!-- Price -->
+                <div class="form-group">
+                    <label for="price">Price (₹ INR) <span class="required">*</span></label>
+                    <input
+                        type="number"
+                        id="price"
+                        class="form-control"
+                        placeholder="e.g. 2499.00"
+                        min="0.01"
+                        step="0.01"
+                        required
+                    >
+                </div>
 
-        <input 
-            type="text"
-            id="category"
-            placeholder="Category"
-        >
+                <!-- Stock Quantity -->
+                <div class="form-group">
+                    <label for="stock_quantity">Stock Quantity <span class="required">*</span></label>
+                    <input
+                        type="number"
+                        id="stock_quantity"
+                        class="form-control"
+                        placeholder="e.g. 25"
+                        min="0"
+                        step="1"
+                        required
+                    >
+                </div>
 
+                <!-- Product Link -->
+                <div class="form-group">
+                    <label for="product_link">Product Link <span class="optional">(Optional)</span></label>
+                    <input
+                        type="url"
+                        id="product_link"
+                        class="form-control"
+                        placeholder="https://example.com/products/item-name"
+                    >
+                </div>
 
-        <input 
-            type="number"
-            id="price"
-            placeholder="Price"
-        >
+                <!-- Direct Image URL -->
+                <div class="form-group">
+                    <label for="imageUrl">Image URL <span class="optional">(Optional)</span></label>
+                    <input
+                        type="url"
+                        id="imageUrl"
+                        class="form-control"
+                        placeholder="https://images.unsplash.com/..."
+                    >
+                </div>
 
+                <!-- Image Upload & Preview Box (Full Width) -->
+                <div class="form-group full-width">
+                    <label>Product Image Attachment</label>
+                    <div class="image-upload-box">
+                        <div class="image-inputs-row">
+                            <div class="file-upload-wrapper">
+                                <input
+                                    type="file"
+                                    id="productImage"
+                                    accept="image/*"
+                                    aria-label="Upload product image file"
+                                >
+                            </div>
+                            <span class="divider-or">or</span>
+                            <div class="url-input-wrapper">
+                                <small style="color: var(--text-muted);">Provide direct image URL above or upload a local image file.</small>
+                            </div>
+                        </div>
 
-        <button onclick="addProduct()">
-            Add Product
-        </button>
+                        <div id="imageError" class="image-error"></div>
 
+                        <!-- Image Preview -->
+                        <div id="imagePreview" class="image-preview-card">
+                            <img
+                                id="previewImage"
+                                src=""
+                                alt="Product Preview"
+                            >
+                            <div class="preview-info">
+                                <strong>Image Preview</strong>
+                                <span>Verified image loaded successfully.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <button
+                    type="button"
+                    class="add-btn"
+                    onclick="addProduct()"
+                    id="submitProductBtn">
+                    <span>➕</span> Add Product
+                </button>
+                <button
+                    type="button"
+                    class="reset-btn"
+                    onclick="resetProductForm()">
+                    Clear Form
+                </button>
+            </div>
+        </div>
 
-        <h2>Product List</h2>
+        <!-- PRODUCT RECOMMENDATIONS -->
+        <section class="recommendation-card" aria-labelledby="recommendationTitle">
+            <div class="card-header" style="border: none; padding: 0; margin-bottom: 12px;">
+                <div>
+                    <h2 id="recommendationTitle">💡 Smart Product Recommendations</h2>
+                    <p id="recommendationMessage" style="margin: 4px 0 0;">Top-selling products from historical sales transactions.</p>
+                </div>
+            </div>
+            <div style="margin-bottom: 14px;">
+                <label for="recommendationProduct" style="font-size: 13px; font-weight: 600; color: #334155; display: block; margin-bottom: 6px;">Filter recommendations by base product:</label>
+                <select id="recommendationProduct" class="form-control" style="max-width: 360px;">
+                    <option value="">All products</option>
+                </select>
+            </div>
+            <div id="recommendationList" class="recommendation-list"></div>
+        </section>
 
+        <!-- PRODUCT CATALOG LIST -->
+        <div class="dashboard-card">
+            <div class="card-header">
+                <div>
+                    <h2>📦 Product Catalog Directory</h2>
+                    <p class="header-desc">Complete overview of active marketplace products, stock levels, and pricing.</p>
+                </div>
+            </div>
 
-        <table>
+            <div class="product-toolbar">
+                <div class="toolbar-filters">
+                    <label for="productCategoryFilter">Category:</label>
+                    <select id="productCategoryFilter">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+                <div class="toolbar-filters">
+                    <input
+                        type="text"
+                        id="productSearchInput"
+                        class="search-input"
+                        placeholder="🔍 Search products..."
+                    >
+                </div>
+            </div>
 
-
-            <thead>
-
-                <tr>
-
-                    <th>ID</th>
-
-                    <th>Product Name</th>
-
-                    <th>Category</th>
-
-                    <th>Price</th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody id="productTable">
-
-
-            </tbody>
-
-
-        </table>
-
+            <!-- Responsive table container to eliminate horizontal page scrolling -->
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 60px;">ID</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Link</th>
+                            <th style="width: 70px;">Image</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTable">
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
-
 
 </div>
 
-
-
-<script src="js/product.js"></script>
-
+<script src="js/product.js?v=3"></script>
 
 </body>
 

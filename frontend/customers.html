@@ -40,11 +40,11 @@
             </li>
 
             <li>
-                <a href="#">💳 Transactions</a>
+                 <a href="transactions.html">💳 Transactions</a>
             </li>
 
             <li>
-                <a href="#">📊 Analytics</a>
+                 <a href="analytics.html">📊 Analytics</a>
             </li>
 
             <li>
@@ -72,6 +72,8 @@
 
         </div>
 
+        <div id="customerMessage" class="customer-message" role="status" aria-live="polite"></div>
+
         <!-- Customer Form -->
 
         <div class="status-box">
@@ -83,21 +85,27 @@
             <input
                 type="text"
                 id="customerName"
-                placeholder="Customer Name">
+                placeholder="Customer Name"
+                minlength="2"
+                required>
 
             <br><br>
 
             <input
                 type="email"
                 id="customerEmail"
-                placeholder="Email">
+                placeholder="Email"
+                required>
 
             <br><br>
 
             <input
                 type="text"
                 id="customerPhone"
-                placeholder="Phone Number">
+                placeholder="Phone Number"
+                minlength="10"
+                maxlength="15"
+                required>
 
             <br><br>
 
@@ -123,6 +131,8 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Total Spending</th>
+                        <th>Segment</th>
 
                     </tr>
 

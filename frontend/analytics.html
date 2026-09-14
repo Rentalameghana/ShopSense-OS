@@ -10,6 +10,698 @@
 
     <link rel="stylesheet" href="css/style.css">
 
+    <style>
+
+        /* =========================
+           ANALYTICS LAYOUT
+        ========================= */
+
+        .analytics-charts {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+            align-items: stretch;
+        }
+
+        .analytics-charts .chart-box:nth-child(3) {
+            grid-column: 1 / -1;
+        }
+
+        .analytics-page {
+            font-size: 16px;
+        }
+
+        .analytics-page .header h1 {
+            font-size: 38px;
+        }
+
+        .analytics-page .header p {
+            font-size: 15px;
+        }
+
+        .analytics-page .cards {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .analytics-page .card {
+            min-height: 132px;
+            padding: 24px;
+        }
+
+        .analytics-page .card h3 {
+            font-size: 15px;
+        }
+
+        .analytics-page .card h2 {
+            font-size: 34px;
+        }
+
+
+        /* =========================
+           CHART CARD
+        ========================= */
+
+        .chart-box {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.08);
+
+            min-height: 460px;
+        }
+
+        .chart-box h2 {
+            margin-bottom: 20px;
+            color: #0f172a;
+            font-size: 22px;
+        }
+
+
+        /* =========================
+           CHART CONTAINER
+        ========================= */
+
+        .chart-container {
+            position: relative;
+
+            width: 100%;
+            height: 380px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+
+        /*
+         * IMPORTANT GRAPH FIX
+         *
+         * Do NOT limit canvas to 300px.
+         * Give every graph the complete container.
+         */
+
+        .chart-container canvas {
+            display: block !important;
+
+            width: 100% !important;
+            height: 380px !important;
+
+            max-width: none !important;
+            max-height: none !important;
+        }
+
+
+        /* Product donut should not become too large */
+
+        #productChart {
+            width: 100% !important;
+            height: 380px !important;
+
+            max-width: 100% !important;
+            max-height: 380px !important;
+        }
+
+
+        .chart-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            height: 100%;
+            margin: 0;
+
+            color: #64748b;
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .analytics-status {
+            margin: -15px 0 20px;
+            padding: 12px 16px;
+
+            border: 1px solid #bbf7d0;
+            border-radius: 10px;
+
+            background: #f0fdf4;
+            color: #15803d;
+
+            font-size: 14px;
+        }
+
+        .analytics-status.error {
+            border-color: #fecaca;
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+
+        /* =========================
+           EXPORT
+        ========================= */
+
+        .analytics-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin: -8px 0 20px;
+        }
+
+        .export-button {
+            min-height: 46px;
+            padding: 11px 18px;
+
+            border: 0;
+            border-radius: 10px;
+
+            background: #2563eb;
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .export-button:hover {
+            background: #1d4ed8;
+        }
+
+        .export-button:disabled {
+            cursor: wait;
+            opacity: .7;
+        }
+
+
+        /* =========================
+           AI ANALYST
+        ========================= */
+
+        .ai-analyst-card {
+            margin: 25px 0;
+            padding: 25px;
+
+            border-radius: 18px;
+
+            background: white;
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, .08);
+        }
+
+        .ai-analyst-card h2 {
+            margin-bottom: 8px;
+
+            color: #0f172a;
+            font-size: 24px;
+        }
+
+        .ai-analyst-card > p {
+            margin-bottom: 18px;
+
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .ai-question-row {
+            display: flex;
+            gap: 12px;
+            align-items: stretch;
+        }
+
+        .ai-question-input {
+            flex: 1;
+            min-width: 0;
+
+            min-height: 50px;
+
+            padding: 12px 14px;
+
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+
+            outline: none;
+
+            background: #f8fafc;
+            color: #0f172a;
+
+            font-size: 16px;
+        }
+
+        .ai-question-input:focus {
+            border-color: #818cf8;
+            background: white;
+
+            box-shadow:
+                0 0 0 4px rgba(99, 102, 241, .12);
+        }
+
+        .ai-ask-button {
+            min-height: 50px;
+
+            padding: 12px 22px;
+
+            border: 0;
+            border-radius: 10px;
+
+            background: #2563eb;
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .ai-ask-button:hover {
+            background: #1d4ed8;
+        }
+
+        .ai-ask-button:disabled {
+            cursor: wait;
+            opacity: .7;
+        }
+
+        .ai-examples {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .ai-example {
+            padding: 8px 11px;
+
+            border: 1px solid #c7d2fe;
+            border-radius: 999px;
+
+            background: #eef2ff;
+            color: #3730a3;
+
+            cursor: pointer;
+
+            font-size: 13px;
+        }
+
+        .ai-result {
+            margin-top: 20px;
+            padding: 16px;
+
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+
+            background: #f8fafc;
+        }
+
+        .ai-answer {
+            color: #172554;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            line-height: 1.5;
+        }
+
+        .ai-result-meta {
+            margin-top: 8px;
+
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .ai-result-table-wrap {
+            margin-top: 14px;
+            overflow-x: auto;
+        }
+
+        .ai-result-table {
+            min-width: 520px;
+            background: white;
+        }
+
+        .ai-result-table th {
+            background: #4f46e5;
+        }
+
+
+        /* =========================
+           FORECAST
+        ========================= */
+
+        .forecast-card {
+            margin-top: 25px;
+            padding: 25px;
+
+            border-radius: 18px;
+
+            background: white;
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .forecast-card h2 {
+            margin-bottom: 8px;
+
+            color: #0f172a;
+            font-size: 24px;
+        }
+
+        .forecast-card > p {
+            margin-bottom: 20px;
+
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .forecast-controls {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            align-items: end;
+        }
+
+        .forecast-control {
+            display: flex;
+            flex-direction: column;
+
+            gap: 6px;
+
+            min-width: 190px;
+        }
+
+        .forecast-control label {
+            color: #334155;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .forecast-control select,
+        .forecast-control input,
+        .forecast-button {
+            min-height: 46px;
+
+            padding: 10px 12px;
+
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+
+            font-size: 15px;
+        }
+
+        .forecast-control select,
+        .forecast-control input {
+            background: white;
+            color: #0f172a;
+        }
+
+        .forecast-button {
+            border-color: #2563eb;
+
+            background: #2563eb;
+            color: white;
+
+            cursor: pointer;
+
+            font-weight: 600;
+        }
+
+        .forecast-button:hover {
+            background: #1d4ed8;
+        }
+
+        .forecast-message {
+            min-height: 20px;
+
+            margin-top: 18px;
+
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .forecast-message.error {
+            color: #b91c1c;
+        }
+
+        .forecast-results {
+            margin-top: 18px;
+        }
+
+        .forecast-results h3 {
+            margin-bottom: 12px;
+
+            color: #172554;
+            font-size: 17px;
+        }
+
+        .forecast-table-wrap {
+            overflow-x: auto;
+        }
+
+        .forecast-table {
+            min-width: 360px;
+        }
+
+        .forecast-table th {
+            background: #4f46e5;
+        }
+
+        .forecast-chart-container {
+            position: relative;
+
+            height: 300px;
+
+            margin-top: 20px;
+        }
+
+
+        /* =========================
+           VENDOR BENCHMARK
+        ========================= */
+
+        .benchmark-card {
+            margin-top: 25px;
+            padding: 25px;
+
+            border-radius: 18px;
+
+            background: white;
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .benchmark-card h2 {
+            margin-bottom: 8px;
+
+            color: #0f172a;
+            font-size: 24px;
+        }
+
+        .benchmark-card > p {
+            margin-bottom: 20px;
+
+            color: #64748b;
+
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .benchmark-controls {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            align-items: end;
+        }
+
+        .benchmark-controls label {
+            display: flex;
+            flex-direction: column;
+
+            gap: 6px;
+
+            min-width: 240px;
+
+            color: #334155;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .benchmark-controls select {
+            min-height: 42px;
+
+            padding: 10px 12px;
+
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+
+            background: white;
+            color: #0f172a;
+
+            font-size: 15px;
+        }
+
+        .benchmark-metrics {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 14px;
+
+            margin-top: 20px;
+        }
+
+        .benchmark-metric {
+            padding: 16px;
+
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+
+            background: #f8fafc;
+        }
+
+        .benchmark-metric span,
+        .benchmark-metric strong {
+            display: block;
+        }
+
+        .benchmark-metric span {
+            margin-bottom: 6px;
+
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .benchmark-metric strong {
+            color: #172554;
+            font-size: 20px;
+        }
+
+        .benchmark-status {
+            margin-top: 16px;
+
+            color: #475569;
+
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .benchmark-table-wrap {
+            margin-top: 20px;
+
+            overflow-x: auto;
+        }
+
+        .benchmark-table {
+            min-width: 760px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1000px) {
+
+            .analytics-charts {
+                grid-template-columns: 1fr;
+            }
+
+            .analytics-charts .chart-box:nth-child(3) {
+                grid-column: auto;
+            }
+
+            .chart-box {
+                min-height: 420px;
+            }
+
+            .analytics-page .cards {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .benchmark-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .ai-analyst-card {
+                padding: 18px;
+            }
+
+            .ai-question-row {
+                flex-direction: column;
+            }
+
+            .ai-ask-button {
+                width: 100%;
+            }
+
+            .chart-box {
+                padding: 18px;
+
+                min-height: 380px;
+            }
+
+            .chart-container {
+                height: 300px;
+            }
+
+            .chart-container canvas {
+                height: 300px !important;
+            }
+
+            #productChart {
+                height: 300px !important;
+                max-height: 300px !important;
+            }
+
+            .analytics-page .header h1 {
+                font-size: 34px;
+            }
+
+            .analytics-page .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .benchmark-card {
+                padding: 18px;
+            }
+
+            .benchmark-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .benchmark-table {
+                min-width: 680px;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 
@@ -19,12 +711,16 @@
 <div class="container">
 
 
-    <!-- Sidebar -->
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
 
     <div class="sidebar">
 
         <div class="logo">
+
             <h2>ShopSense OS</h2>
+
         </div>
 
 
@@ -32,89 +728,258 @@
 
 
             <li>
-                <a href="dashboard.html">🏠 Dashboard</a>
+                <a href="dashboard.html">
+                    🏠 Dashboard
+                </a>
             </li>
 
 
             <li>
-                <a href="vendors.html">🏢 Vendors</a>
+                <a href="vendors.html">
+                    🏢 Vendors
+                </a>
             </li>
 
 
             <li>
-                <a href="products.html">📦 Products</a>
+                <a href="products.html">
+                    📦 Products
+                </a>
             </li>
 
 
             <li>
-                <a href="customers.html">👤 Customers</a>
+                <a href="customers.html">
+                    👤 Customers
+                </a>
             </li>
 
 
             <li>
-                <a href="transactions.html">💳 Transactions</a>
+                <a href="transactions.html">
+                    💳 Transactions
+                </a>
             </li>
 
 
             <li class="active">
-                <a href="analytics.html">📊 Analytics</a>
+                <a href="analytics.html">
+                    📊 Analytics
+                </a>
             </li>
 
 
             <li>
-                <a href="login.html">🚪 Logout</a>
+                <a href="login.html">
+                    🚪 Logout
+                </a>
             </li>
 
 
         </ul>
 
-
     </div>
 
 
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <div class="main-content analytics-page">
 
 
-
-    <!-- Main Content -->
-
-
-    <div class="main-content">
-
+        <!-- HEADER -->
 
         <div class="header">
 
-
             <div>
 
-                <h1>Analytics Dashboard</h1>
+                <h1>
+                    Analytics Dashboard
+                </h1>
 
-                <p>Business insights and performance overview</p>
+                <p>
+                    Business insights and performance overview
+                </p>
 
             </div>
 
 
             <div class="admin">
 
-                <h3>Admin</h3>
+                <h3>
+                    Admin
+                </h3>
 
             </div>
-
 
         </div>
 
 
+        <div
+            id="analyticsStatus"
+            class="analytics-status"
+            role="status"
+            hidden>
+        </div>
 
 
+        <div class="analytics-actions">
 
-        <!-- Cards -->
+            <button
+                id="exportCsv"
+                class="export-button"
+                type="button">
 
+                Export CSV
+
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             AI DATA ANALYST
+        ========================= -->
+
+        <section
+            class="ai-analyst-card"
+            aria-labelledby="aiAnalystTitle">
+
+            <h2 id="aiAnalystTitle">
+                AI Data Analyst
+            </h2>
+
+            <p>
+                Ask questions about the real ShopSense data.
+                Answers are limited to read-only supported analytics.
+            </p>
+
+
+            <div class="ai-question-row">
+
+                <input
+                    id="aiQuestion"
+                    class="ai-question-input"
+                    type="text"
+                    maxlength="500"
+                    placeholder="Ask about your sales data...">
+
+
+                <button
+                    id="askAi"
+                    class="ai-ask-button"
+                    type="button">
+
+                    Ask AI
+
+                </button>
+
+            </div>
+
+
+            <div
+                class="ai-examples"
+                aria-label="Example questions">
+
+
+                <button
+                    class="ai-example"
+                    type="button">
+
+                    Which product sold the most?
+
+                </button>
+
+
+                <button
+                    class="ai-example"
+                    type="button">
+
+                    What is the total revenue?
+
+                </button>
+
+
+                <button
+                    class="ai-example"
+                    type="button">
+
+                    Which customer spent the most?
+
+                </button>
+
+
+                <button
+                    class="ai-example"
+                    type="button">
+
+                    Show revenue by category.
+
+                </button>
+
+
+                <button
+                    class="ai-example"
+                    type="button">
+
+                    How many transactions do we have?
+
+                </button>
+
+
+            </div>
+
+
+            <div
+                id="aiResult"
+                class="ai-result"
+                hidden>
+
+
+                <p
+                    id="aiAnswer"
+                    class="ai-answer">
+                </p>
+
+
+                <p
+                    id="aiResultMeta"
+                    class="ai-result-meta">
+                </p>
+
+
+                <div class="ai-result-table-wrap">
+
+                    <table class="ai-result-table">
+
+                        <thead id="aiResultHead">
+                        </thead>
+
+                        <tbody id="aiResultBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             SUMMARY CARDS
+        ========================= -->
 
         <div class="cards">
 
 
             <div class="card">
 
-                <h3>Total Revenue</h3>
+                <h3>
+                    Total Revenue
+                </h3>
 
                 <h2 id="totalRevenue">
                     ₹0
@@ -123,10 +988,11 @@
             </div>
 
 
-
             <div class="card">
 
-                <h3>Total Transactions</h3>
+                <h3>
+                    Total Transactions
+                </h3>
 
                 <h2 id="totalTransactions">
                     0
@@ -135,11 +1001,11 @@
             </div>
 
 
-
-
             <div class="card">
 
-                <h3>Total Customers</h3>
+                <h3>
+                    Total Customers
+                </h3>
 
                 <h2 id="totalCustomers">
                     0
@@ -148,62 +1014,382 @@
             </div>
 
 
+        </div>
+
+
+        <!-- =========================
+             CHARTS
+        ========================= -->
+
+        <div class="analytics-charts">
+
+
+            <!-- SALES OVERVIEW -->
+
+            <div class="chart-box">
+
+                <h2>
+                    Sales Overview
+                </h2>
+
+
+                <div class="chart-container">
+
+                    <canvas id="salesChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT INSIGHTS -->
+
+            <div class="chart-box">
+
+                <h2>
+                    Product Insights
+                </h2>
+
+
+                <div class="chart-container">
+
+                    <canvas id="productChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <!-- REVENUE TREND -->
+
+            <div class="chart-box">
+
+                <h2>
+                    Revenue Trend
+                </h2>
+
+
+                <div class="chart-container">
+
+                    <canvas id="trendChart"></canvas>
+
+                </div>
+
+            </div>
+
 
         </div>
 
 
+        <!-- =========================
+             VENDOR BENCHMARK
+        ========================= -->
+
+        <section
+            class="benchmark-card"
+            aria-labelledby="benchmarkTitle">
 
 
+            <h2 id="benchmarkTitle">
+                Vendor Benchmarking
+            </h2>
 
 
-        <!-- Charts -->
+            <p>
+                Compare vendor revenue with the marketplace average
+                across all vendors, including vendors with zero sales.
+            </p>
 
 
-        <div class="activity">
+            <div class="benchmark-controls">
+
+                <label for="vendorBenchmarkSelect">
+
+                    View vendor performance
 
 
-            <h2>Sales Overview</h2>
+                    <select id="vendorBenchmarkSelect">
+
+                        <option value="">
+                            All vendors
+                        </option>
+
+                    </select>
+
+                </label>
+
+            </div>
 
 
-            <canvas id="salesChart"></canvas>
+            <div
+                id="benchmarkMetrics"
+                class="benchmark-metrics"
+                hidden>
 
 
-        </div>
+                <div class="benchmark-metric">
+
+                    <span>
+                        Vendor revenue
+                    </span>
+
+                    <strong id="benchmarkVendorRevenue">
+                        ₹0
+                    </strong>
+
+                </div>
 
 
+                <div class="benchmark-metric">
+
+                    <span>
+                        Marketplace average
+                    </span>
+
+                    <strong id="benchmarkAverageRevenue">
+                        ₹0
+                    </strong>
+
+                </div>
 
 
+                <div class="benchmark-metric">
 
-        <div class="activity">
+                    <span>
+                        Difference
+                    </span>
+
+                    <strong id="benchmarkDifference">
+                        ₹0
+                    </strong>
+
+                </div>
 
 
-            <h2>Product Insights</h2>
+                <div class="benchmark-metric">
+
+                    <span>
+                        Performance vs average
+                    </span>
+
+                    <strong id="benchmarkPercentage">
+                        0%
+                    </strong>
+
+                </div>
 
 
-            <canvas id="productChart"></canvas>
+            </div>
 
 
-        </div>
+            <p
+                id="benchmarkStatus"
+                class="benchmark-status"
+                role="status">
+
+                Select a vendor to view its comparison.
+
+            </p>
 
 
+            <div class="benchmark-table-wrap">
+
+                <table class="benchmark-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Vendor
+                            </th>
+
+                            <th>
+                                Revenue
+                            </th>
+
+                            <th>
+                                Marketplace Average
+                            </th>
+
+                            <th>
+                                Difference
+                            </th>
+
+                            <th>
+                                Performance
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="benchmarkTable">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             DEMAND FORECAST
+        ========================= -->
+
+        <section
+            class="forecast-card"
+            aria-labelledby="forecastTitle">
+
+
+            <h2 id="forecastTitle">
+                Demand Forecast
+            </h2>
+
+
+            <p>
+                Estimate future product demand from real historical transactions.
+            </p>
+
+
+            <div class="forecast-controls">
+
+
+                <div class="forecast-control">
+
+                    <label for="forecastProduct">
+                        Product
+                    </label>
+
+
+                    <select id="forecastProduct">
+
+                        <option value="">
+                            Select Product
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="forecast-control">
+
+                    <label for="forecastDays">
+                        Forecast period
+                    </label>
+
+
+                    <input
+                        id="forecastDays"
+                        type="number"
+                        min="1"
+                        max="30"
+                        value="7">
+
+                </div>
+
+
+                <button
+                    id="runForecast"
+                    class="forecast-button"
+                    type="button">
+
+                    Generate Forecast
+
+                </button>
+
+
+            </div>
+
+
+            <p
+                id="forecastMessage"
+                class="forecast-message"
+                role="status"
+                aria-live="polite">
+
+                Select a product to begin.
+
+            </p>
+
+
+            <div
+                id="forecastResults"
+                class="forecast-results"
+                hidden>
+
+
+                <h3 id="forecastInterpretation">
+                </h3>
+
+
+                <div class="forecast-table-wrap">
+
+                    <table class="forecast-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Date
+                                </th>
+
+                                <th>
+                                    Predicted Demand
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="forecastTable">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div class="forecast-chart-container">
+
+                    <canvas id="forecastChart"></canvas>
+
+                </div>
+
+
+            </div>
+
+        </section>
 
 
     </div>
 
-
 </div>
 
 
+<!-- =========================
+     KEEP CHART.JS
+========================= -->
 
-<!-- Chart Library -->
+<script src="assets/chart.umd.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<!-- =========================
+     ANALYTICS JAVASCRIPT
+========================= -->
 
 <script src="js/analytics.js"></script>
 
 
 </body>
-
 
 </html>

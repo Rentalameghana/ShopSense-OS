@@ -1,0 +1,26 @@
+# Git & IDE
+.git
+.gitignore
+.vscode
+.idea
+
+# Python virtual environments & caches
+venv/
+backend/venv/
+frontend/venv/
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Local database files (exclude temporary test databases)
+test*.db
+*.sqlite
+*.sqlite3
+
+# Environment files
+.env
+.env.*
+

@@ -1,0 +1,327 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Validation - ShopSense OS</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <h2>🛒 ShopSense OS</h2>
+
+        </div>
+
+
+        <ul class="menu">
+
+            <li>
+                <a href="dashboard.html">
+                    🏠 Dashboard
+                </a>
+            </li>
+
+
+            <li>
+                <a href="vendors.html">
+                    🏢 Vendors Control
+                </a>
+            </li>
+
+
+            <li>
+                <a href="products.html">
+                    📦 Products
+                </a>
+            </li>
+
+
+            <li>
+                <a href="customers.html">
+                    👥 Customers
+                </a>
+            </li>
+
+
+            <li>
+                <a href="transactions.html">
+                    💳 Transactions
+                </a>
+            </li>
+
+
+            <li>
+                <a href="analytics.html">
+                    📊 Analytics Engine
+                </a>
+            </li>
+
+
+            <li>
+                <a href="forecasting.html">
+                    📈 Forecasting
+                </a>
+            </li>
+
+
+            <li class="active">
+                <a href="validation.html">
+                    ✅ Validation
+                </a>
+            </li>
+
+
+            <li>
+                <a href="setting.html">
+                    ⚙️ Settings
+                </a>
+            </li>
+
+
+            <li>
+                <a href="login.html">
+                    🚪 Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main-content">
+
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <div>
+
+                <h1>
+                    Analytics Validation
+                </h1>
+
+                <p>
+                    Validate dashboard data with backend results
+                </p>
+
+            </div>
+
+
+            <div class="admin">
+
+                <div>
+                    👤
+                </div>
+
+                <h3>
+                    Admin
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <!-- VALIDATION STATUS -->
+
+        <div class="status-box">
+
+            <h2>
+                Validation Status
+            </h2>
+
+            <div
+                id="validationStatus"
+                class="status">
+
+                Ready to Validate
+
+            </div>
+
+            <p>
+                Click the button below to check
+                dashboard analytics.
+            </p>
+
+
+            <br>
+
+
+            <button
+                class="validation-btn"
+                onclick="runValidation()">
+
+                Run Validation
+
+            </button>
+
+        </div>
+
+
+        <!-- VALIDATION TABLE -->
+
+        <div class="activity">
+
+            <h2>
+                SQL Validation Checks
+            </h2>
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Check
+                        </th>
+
+                        <th>
+                            Expected
+                        </th>
+
+                        <th>
+                            Actual
+                        </th>
+
+                        <th>
+                            Result
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    <tr>
+
+                        <td>
+                            Total Revenue Match
+                        </td>
+
+                        <td id="expectedRevenue">
+                            -
+                        </td>
+
+                        <td id="actualRevenue">
+                            -
+                        </td>
+
+                        <td id="revenueResult">
+                            -
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Transaction Count Match
+                        </td>
+
+                        <td id="expectedTransactions">
+                            -
+                        </td>
+
+                        <td id="actualTransactions">
+                            -
+                        </td>
+
+                        <td id="transactionResult">
+                            -
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+                            Vendor Data Valid
+                        </td>
+
+                        <td>
+                            Active Vendors
+                        </td>
+
+                        <td id="actualVendors">
+                            -
+                        </td>
+
+                        <td id="vendorResult">
+                            -
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- SUMMARY -->
+
+        <div
+            class="status-box"
+            style="margin-top:25px;">
+
+            <h2>
+                Validation Summary
+            </h2>
+
+            <p id="validationSummary">
+
+                Validation has not been performed yet.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script src="js/validation.js"></script>
+
+
+</body>
+
+</html>
+```
